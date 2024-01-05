@@ -1,27 +1,42 @@
-let nome = prompt("Por favor, digite o nome do jogador: ")
-let vitorias = prompt("Agora digite o número de vitórias: ")
-let derrotas = prompt("Qual o número de derrotas: ")
+function coletarInformacoesJogador() {
+    let nome = prompt("Por favor, digite o nome do jogador: ");
+    let vitorias = parseInt(prompt("Agora digite o número de vitórias: "), 10);
+    let derrotas = parseInt(prompt("Qual o número de derrotas: "), 10);
 
-function tier (vitorias, derrotas) {
-    resultado = vitorias - derrotas
-
-    if (resultado <= 10) {
-        resultado = "ferro"
-    } else if (resultado >= 10 && resultado <= 20) {
-        resultado = "bronze"
-    } else if (resultado >= 21 && resultado <= 50) {
-        resultado = "prata"
-    } else if (resultado >= 51 && resultado <= 80) {
-        resultado = "ouro"
-    } else if (resultado >= 81 && resultado <= 90) {
-        resultado = "diamante"
-    } else if (resultado >= 91 && resultado <= 100) {
-        resultado = "lendário"
-    } else if (resultado >= 101) {
-        resultado = "imortal"
-    }
-    
-    return resultado
+    return { nome, vitorias, derrotas };
 }
 
-alert(tier(vitorias, derrotas))
+function tier(vitorias, derrotas) {
+    let saldo = vitorias - derrotas;
+
+    if (saldo <= 10) {
+        return "ferro";
+    } else if (saldo <= 20) {
+        return "bronze";
+    } else if (saldo <= 50) {
+        return "prata";
+    } else if (saldo <= 80) {
+        return "ouro";
+    } else if (saldo <= 90) {
+        return "diamante";
+    } else if (saldo <= 100) {
+        return "lendário";
+    } else if (saldo > 100) {
+        return "imortal";
+    } else {
+        return "inválido";
+    }
+}
+
+function continuar() {
+    while (prompt("Deseja continuar? [S/N]:").toLowerCase() === "s") {
+        let { nome, vitorias, derrotas } = coletarInformacoesJogador();
+        let saldo = vitorias - derrotas;
+        alert("O herói " + nome + " tem um saldo de " + saldo + " e está no nível " + tier(vitorias, derrotas) + ", parabéns!");
+    }
+}
+
+let { nome, vitorias, derrotas } = coletarInformacoesJogador();
+let saldo = vitorias - derrotas;
+alert("O herói " + nome + " tem um saldo de " + saldo + " e está no nível " + tier(vitorias, derrotas) + ", parabéns!");
+continuar();
